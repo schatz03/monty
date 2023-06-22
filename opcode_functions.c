@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 /**
  * push - Push an element to the stack
  * @stack: Double pointer to the stack

@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 /**
  * create_instructions - Create an array of instruction structures
  *

@@ -1,4 +1,4 @@
-#include "main.h"
+#include "monty.h"
 /**
  * process_opcodes - Read and execute Monty byte code instructions
  * @file: Pointer to the file containing the byte code instructions
