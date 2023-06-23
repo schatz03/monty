@@ -29,7 +29,6 @@ int main(int argc, char *argv[])
 	fill_instructions(instructions);
 	/* Read and execute Monty byte code */
 	process_opcodes(file, instructions);
-	fclose(file);
 	free_instructions(instructions);
 	return (EXIT_SUCCESS);
 }

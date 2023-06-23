@@ -1,4 +1,5 @@
 #include "monty.h"
+
 /**
  * process_opcodes - Read and execute Monty byte code instructions
  * @file: Pointer to the file containing the byte code instructions
@@ -13,12 +14,11 @@ void process_opcodes(FILE *file, instruction_m *instructions)
 	unsigned int line_number = 1;
 	stack_m *stack = NULL;
 	char *buffer = NULL;
-	size_t n = 0, read = 1;
-	int j, check;
+	size_t n = 0;
+	int read, j, check;
 
-	while (read > 0)
+	while ((read = getline(&buffer, &n, file)) != -1)
 	{
-		read = getline(&buffer, &n, file);
 		if (_parse_opcode(buffer, &stack, line_number) != 1)
 			continue;
 		if (op_code_and_arg.op_code == NULL || op_code_and_arg.op_code[0] == '#'
@@ -37,12 +37,11 @@ void process_opcodes(FILE *file, instruction_m *instructions)
 					line_number, op_code_and_arg.op_code);
 			exit(EXIT_FAILURE);
 			fclose(file);
-			free_instructions(instructions);
-			free_stack(stack);
 		}
 		instructions[j].f(&stack, line_number);
 		line_number++;
 	}
+	free_stack(stack);
 	check = fclose(file);
 	if (check == -1)
 		exit(-1);
