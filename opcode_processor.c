@@ -1,4 +1,5 @@
 #include "monty.h"
+
 /**
  * process_opcodes - Read and execute Monty byte code instructions
  * @file: Pointer to the file containing the byte code instructions
@@ -10,42 +11,31 @@
  */
 void process_opcodes(FILE *file, instruction_m *instructions)
 {
-	char line[100];
 	unsigned int line_number = 1;
 	stack_m *stack = NULL;
-	char *opcode;
-	int found;
-	int i;
-
-	while (fgets(line, sizeof(line), file))
+	char *buffer = NULL;
+	size_t n = 0;
+	int read, j, check;
+	while ((read = getline(&buffer, &n, file)) != -1)
 	{
-		line[strcspn(line, "\n")] = '\0';
-
-		opcode = strtok(line, " \t");
-		if (opcode == NULL)
+		_parse_opcode(buffer, &stack, line_number);
+		if (op_code_and_arg.op_code == NULL || op_code_and_arg.op_code[0] == '#')
 		{
 			line_number++;
 			continue;
 		}
-
-		found = 0;
-		for (i = 0; instructions[i].opcode; i++)
+		j = 0;
+		while (instructions[j].f != NULL && strcmp(instructions[j].opcode, op_code_and_arg.op_code) != 0)
+			j++;
+		if (instructions[j].f == NULL)
 		{
-			if (strcmp(opcode, instructions[i].opcode) == 0)
-			{
-				instructions[i].f(&stack, line_number);
-				found = 1;
-				break;
-			}
-		}
-
-		if (!found)
-		{
-			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, opcode);
+			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, op_code_and_arg.op_code);
 			exit(EXIT_FAILURE);
 		}
-
+		instructions[j].f(&stack, line_number);
 		line_number++;
 	}
+	check = fclose(file);
+	if (check == -1)
+		exit(-1);
 }
-

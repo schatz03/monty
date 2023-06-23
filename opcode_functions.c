@@ -11,17 +11,8 @@
  */
 void push(stack_m **stack, unsigned int line_number)
 {
-	char *arg = strtok(NULL, " ");
-	int num;
 	stack_m *new_node;
-
-	if (arg == NULL || (!isdigit(arg[0]) && arg[0] != '-'))
-	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		exit(EXIT_FAILURE);
-	}
-
-	num = atoi(arg);
+	(void)line_number;
 	new_node = malloc(sizeof(stack_m));
 	if (new_node == NULL)
 	{
@@ -29,7 +20,7 @@ void push(stack_m **stack, unsigned int line_number)
 		exit(EXIT_FAILURE);
 	}
 
-	new_node->n = num;
+	new_node->n = op_code_and_arg.arg;
 	new_node->prev = NULL;
 	new_node->next = *stack;
 

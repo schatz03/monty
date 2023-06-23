@@ -32,7 +32,15 @@ typedef struct instruction_m
 		char *opcode;
 		void (*f)(stack_m **stack, unsigned int line_number);
 } instruction_m;
+
+typedef struct OPCODEarg {
+    int arg;
+    char *op_code;
+} OPCODEarg;
+OPCODEarg op_code_and_arg;
 instruction_m* create_instructions();
+int _isdigit(char *str);
+void _parse_opcode(char *line, stack_m **stack, unsigned int line_number);
 void fill_instructions(instruction_m* instructions);
 void free_instructions(instruction_m* instructions);
 /* Function declarations */

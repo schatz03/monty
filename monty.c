@@ -1,5 +1,5 @@
 #include "monty.h"
-
+OPCODEarg op_code_and_arg;
 /**
  * main - entry point
  * @argc: arguments count
