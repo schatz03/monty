@@ -36,6 +36,9 @@ void process_opcodes(FILE *file, instruction_m *instructions)
 			fprintf(stderr, "L%d: unknown instruction %s\n",
 					line_number, op_code_and_arg.op_code);
 			exit(EXIT_FAILURE);
+			fclose(file);
+			free_instructions(instructions);
+			free_stack(stack);
 		}
 		instructions[j].f(&stack, line_number);
 		line_number++;

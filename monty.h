@@ -44,6 +44,7 @@ void trim(char *str);
 int _parse_opcode(char *line, stack_m **stack, unsigned int line_number);
 void fill_instructions(instruction_m* instructions);
 void free_instructions(instruction_m* instructions);
+void free_stack(stack_m *head);
 /* Function declarations */
 void process_opcodes(FILE *file, instruction_m *instructions);
 void push(stack_m **stack, unsigned int line_number);

@@ -69,14 +69,14 @@ int _parse_opcode(char *line, stack_m **stack, unsigned int line_number)
 	while (isspace(*firstWord))
 		firstWord++;
 
-	opcode = strtok(firstWord, " ");
+	opcode = strtok(firstWord, " \n\t");
 	if (opcode != NULL)
 	{
 		trim(opcode);
 		if (strlen(opcode) == 0)
 			return (0);
 		op_code_and_arg.op_code = opcode;
-		arguments = strtok(NULL, " ");
+		arguments = strtok(NULL, " \n\t");
 
 		if (arguments != NULL)
 		{
@@ -91,4 +91,20 @@ int _parse_opcode(char *line, stack_m **stack, unsigned int line_number)
 		return (1);
 	}
 	return (0);
+}
+/**
+* free_stack - frees a doubly linked list
+* @head: head of the stack
+*/
+void free_stack(stack_m *head)
+{
+	stack_m *aux;
+
+	aux = head;
+	while (head)
+	{
+		aux = head->next;
+		free(head);
+		head = aux;
+	}
 }
