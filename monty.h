@@ -40,7 +40,8 @@ typedef struct OPCODEarg {
 OPCODEarg op_code_and_arg;
 instruction_m* create_instructions();
 int _isdigit(char *str);
-void _parse_opcode(char *line, stack_m **stack, unsigned int line_number);
+void trim(char *str);
+int _parse_opcode(char *line, stack_m **stack, unsigned int line_number);
 void fill_instructions(instruction_m* instructions);
 void free_instructions(instruction_m* instructions);
 /* Function declarations */
