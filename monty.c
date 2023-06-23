@@ -1,5 +1,4 @@
 #include "monty.h"
-OPCODEarg op_code_and_arg;
 /**
  * main - entry point
  * @argc: arguments count
@@ -10,10 +9,11 @@ OPCODEarg op_code_and_arg;
 
 int main(int argc, char *argv[])
 {
+	OPCODEarg *op_code_and_arg = NULL;
 	FILE *file;
 	/* Fill the opcode and its function in instruction_t structure */
 	instruction_m *instructions = create_instructions();
-
+	(void)op_code_and_arg;
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");

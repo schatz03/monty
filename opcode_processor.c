@@ -16,6 +16,7 @@ void process_opcodes(FILE *file, instruction_m *instructions)
 	char *buffer = NULL;
 	size_t n = 0;
 	int read, j, check;
+
 	while ((read = getline(&buffer, &n, file)) != -1)
 	{
 		_parse_opcode(buffer, &stack, line_number);
@@ -25,11 +26,13 @@ void process_opcodes(FILE *file, instruction_m *instructions)
 			continue;
 		}
 		j = 0;
-		while (instructions[j].f != NULL && strcmp(instructions[j].opcode, op_code_and_arg.op_code) != 0)
+		while (instructions[j].f != NULL &&
+		strcmp(instructions[j].opcode, op_code_and_arg.op_code) != 0)
 			j++;
 		if (instructions[j].f == NULL)
 		{
-			fprintf(stderr, "L%d: unknown instruction %s\n", line_number, op_code_and_arg.op_code);
+			fprintf(stderr, "L%d: unknown instruction %s\n",
+			line_number, op_code_and_arg.op_code);
 			exit(EXIT_FAILURE);
 		}
 		instructions[j].f(&stack, line_number);
