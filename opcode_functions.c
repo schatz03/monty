@@ -44,7 +44,7 @@ void pall(stack_m **stack, unsigned int line_number)
 	while (current && current != NULL)
 	{
 		fprintf(stdout, "%d\n", current->n);
-        fflush(stdout);
+		fflush(stdout);
 		current = current->next;
 	}
 }
