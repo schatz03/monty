@@ -88,7 +88,7 @@ int _parse_opcode(char *line, stack_m **stack, unsigned int line_number)
 				exit(EXIT_FAILURE);
 			}
 			trim(arguments);
-			op_code_and_arg.arg = arguments;
+			op_code_and_arg.arg = atoi(arguments);
 		}
 		return (1);
 	}
