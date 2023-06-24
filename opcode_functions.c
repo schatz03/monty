@@ -13,13 +13,18 @@ void push(stack_m **stack, unsigned int line_number)
 {
 	stack_m *new_node;
 	(void)line_number;
+	if (_isdigit(op_code_and_arg.arg) != 1)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		exit(EXIT_FAILURE);
+	}
 	new_node = malloc(sizeof(stack_m));
 	if (new_node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	new_node->n = op_code_and_arg.arg;
+	new_node->n = atoi(op_code_and_arg.arg);
 	new_node->prev = NULL;
 	new_node->next = *stack;
 	*stack = new_node;
@@ -39,6 +44,7 @@ void pall(stack_m **stack, unsigned int line_number)
 	while (current && current != NULL)
 	{
 		fprintf(stdout, "%d\n", current->n);
+        fflush(stdout);
 		current = current->next;
 	}
 }

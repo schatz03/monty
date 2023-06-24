@@ -39,7 +39,7 @@ typedef struct instruction_m
 } instruction_m;
 
 typedef struct OPCODEarg {
-    int arg;
+    char *arg;
     char *op_code;
 } OPCODEarg;
 OPCODEarg op_code_and_arg;

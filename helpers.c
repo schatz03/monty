@@ -57,10 +57,10 @@ void trim(char *str)
  */
 int _parse_opcode(char *line, stack_m **stack, unsigned int line_number)
 {
-	char *opcode, *firstWord, *arguments, *push;
+	char *opcode, *firstWord, *arguments;
 
 	(void)stack;
-	push = "push";
+	(void)line_number;
 	line[strcspn(line, "\n")] = '\0';
 	if (strlen(line) == 0)
 		return (0);
@@ -82,13 +82,8 @@ int _parse_opcode(char *line, stack_m **stack, unsigned int line_number)
 
 		if (arguments != NULL)
 		{
-			if (_isdigit(arguments) != 1 && strcmp(opcode, push) == 0)
-			{
-				fprintf(stderr, "L%d: usage: push integer\n", line_number);
-				exit(EXIT_FAILURE);
-			}
 			trim(arguments);
-			op_code_and_arg.arg = atoi(arguments);
+			op_code_and_arg.arg = arguments;
 		}
 		return (1);
 	}

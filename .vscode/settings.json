@@ -1,0 +1,10 @@
+{
+    "files.associations": {
+        "*.js": "javascriptreact",
+        "*.rs": "rust",
+        ".env": "bat",
+        "*.proto": "python",
+        "*.in": "rust",
+        "sstream": "c"
+    }
+}
