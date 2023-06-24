@@ -53,5 +53,6 @@ void free_stack(stack_m *head);
 /* Function declarations */
 void process_opcodes(FILE *file, instruction_m *instructions);
 void push(stack_m **stack, unsigned int line_number);
+void pint(stack_m **stack, unsigned int line_number);
 void pall(stack_m **stack, unsigned int line_number);
 #endif

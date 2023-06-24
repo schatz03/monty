@@ -47,3 +47,22 @@ void pall(stack_m **stack, unsigned int line_number)
 		current = current->next;
 	}
 }
+/**
+ * pint - Print the value at the top of the stack
+ * @stack: Double pointer to the stack
+ * @line_number: Line number of the instruction in the bytecode file
+ *
+ * Description: Prints the value at the top of the stack, followed by a newline.
+ * If the stack is empty, it prints an error message and exits with EXIT_FAILURE.
+ */
+void pint(stack_m **stack, unsigned int line_number)
+{
+	stack_m *top = *stack;
+
+	if (top == NULL)
+	{
+		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		exit(EXIT_FAILURE);
+	}
+	printf("%d\n", top->n);
+}

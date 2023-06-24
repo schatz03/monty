@@ -31,6 +31,8 @@ void fill_instructions(instruction_m *instructions)
 	instructions[0].f = push;
 	instructions[1].opcode = "pall";
 	instructions[1].f = pall;
+	instructions[1].opcode = "pint";
+	instructions[1].f = pint;
 	instructions[2].opcode = NULL;
 }
 /**
