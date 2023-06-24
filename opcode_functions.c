@@ -52,8 +52,10 @@ void pall(stack_m **stack, unsigned int line_number)
  * @stack: Double pointer to the stack
  * @line_number: Line number of the instruction in the bytecode file
  *
- * Description: Prints the value at the top of the stack, followed by a newline.
- * If the stack is empty, it prints an error message and exits with EXIT_FAILURE.
+ * Description: Prints the value at the top of the stack,
+ * followed by a newline.
+ * If the stack is empty, it prints an error message and
+ * exits with EXIT_FAILURE.
  */
 void pint(stack_m **stack, unsigned int line_number)
 {
