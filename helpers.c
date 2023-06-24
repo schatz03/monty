@@ -70,6 +70,8 @@ int _parse_opcode(char *line, stack_m **stack, unsigned int line_number)
 		firstWord++;
 
 	opcode = strtok(firstWord, " \n\t");
+	if (opcode && opcode[0] == '#')
+		return (0);
 	if (opcode != NULL)
 	{
 		trim(opcode);
