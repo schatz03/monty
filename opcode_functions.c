@@ -43,8 +43,7 @@ void pall(stack_m **stack, unsigned int line_number)
 	(void)line_number;
 	while (current && current != NULL)
 	{
-		fprintf(stdout, "%d\n", current->n);
-		fflush(stdout);
+		printf("%d\n", current->n);
 		current = current->next;
 	}
 }
