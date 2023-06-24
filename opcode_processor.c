@@ -8,41 +8,47 @@
  * Description: Reads each line of the byte code file, tokenizes the opcode,
  * and executes the corresponding function based on the opcode.
  * Each opcode function is responsible for the specific operation.
+ * Return: 0 or 1 if all good
  */
-void process_opcodes(FILE *file, instruction_m *instructions)
+int process_opcodes(FILE *file, instruction_m *instructions)
 {
-	unsigned int line_number = 1;
+	unsigned int i = 0, counter = 0;
+	size_t size = 0, read_line = 1;
 	stack_m *stack = NULL;
-	char *buffer = NULL;
-	size_t n = 0;
-	int read, j, check;
+	char *op, *content;
 
-	while ((read = getline(&buffer, &n, file)) != -1)
+	while (read_line > 0)
 	{
-		if (_parse_opcode(buffer, &stack, line_number) != 1)
-			continue;
-		if (op_code_and_arg.op_code == NULL || op_code_and_arg.op_code[0] == '#'
-		|| op_code_and_arg.op_code[0] == '\n')
+		content = NULL;
+		read_line = getline(&content, &size, file);
+		op_code_and_arg.content = content;
+		counter++;
+		if (read_line > 0)
 		{
-			line_number++;
-			continue;
+			op = strtok(content, " \n\t");
+			if (op && op[0] == '#')
+				return (0);
+			op_code_and_arg.arg = strtok(NULL, " \n\t");
+			while (instructions[i].opcode && op)
+			{
+				if (strcmp(op, instructions[i].opcode) == 0)
+				{
+					instructions[i].f(&stack, counter);
+					return (0);
+				}
+				i++;
+			}
+			if (op && instructions[i].opcode == NULL)
+			{
+				fprintf(stderr, "L%d: unknown instruction %s\n", counter, op);
+				fclose(file);
+				free(content);
+				exit(EXIT_FAILURE);
+			}
 		}
-		j = 0;
-		while (instructions[j].f != NULL &&
-			   strcmp(instructions[j].opcode, op_code_and_arg.op_code) != 0)
-			j++;
-		if (instructions[j].f == NULL)
-		{
-			fprintf(stderr, "L%d: unknown instruction %s\n",
-					line_number, op_code_and_arg.op_code);
-			exit(EXIT_FAILURE);
-			fclose(file);
-		}
-		instructions[j].f(&stack, line_number);
-		line_number++;
+		free(content);
 	}
 	free_stack(stack);
-	check = fclose(file);
-	if (check == -1)
-		exit(-1);
+	fclose(file);
+	return (0);
 }

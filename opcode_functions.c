@@ -12,15 +12,19 @@
 void push(stack_m **stack, unsigned int line_number)
 {
 	stack_m *new_node;
+	char *push;
 	(void)line_number;
+
+	push = "push";
 	new_node = malloc(sizeof(stack_m));
 	if (new_node == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-
-	new_node->n = op_code_and_arg.arg;
+	if (_isdigit(op_code_and_arg.arg) != 1 && op_code_and_arg.op_code == push)
+		return;
+	new_node->n = atoi(op_code_and_arg.arg);
 	new_node->prev = NULL;
 	new_node->next = *stack;
 

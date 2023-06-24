@@ -39,8 +39,9 @@ typedef struct instruction_m
 } instruction_m;
 
 typedef struct OPCODEarg {
-    int arg;
+    char *arg;
     char *op_code;
+    char *content;
 } OPCODEarg;
 OPCODEarg op_code_and_arg;
 instruction_m* create_instructions();
@@ -51,7 +52,7 @@ void fill_instructions(instruction_m* instructions);
 void free_instructions(instruction_m* instructions);
 void free_stack(stack_m *head);
 /* Function declarations */
-void process_opcodes(FILE *file, instruction_m *instructions);
+int process_opcodes(FILE *file, instruction_m *instructions);
 void push(stack_m **stack, unsigned int line_number);
 void pall(stack_m **stack, unsigned int line_number);
 #endif
