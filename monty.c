@@ -3,7 +3,7 @@
 /**
  * execute - helper function for main function
  * @args: pointer to struct of arguments from main
- *
+ * @file: pointer to file
  * Description: opens and reads from the file
  * containing the opcodes, and calls the function
  * that will find the corresponding executing function
