@@ -1,24 +1,6 @@
 #include "monty.h"
 
 /**
- * open_file - opens a file
- * @file_name: the file namepath
- * Return: void
- */
-
-void open_file(char *file_name)
-{
-	FILE *fd = fopen(file_name, "r");
-
-	if (file_name == NULL || fd == NULL)
-		err(2, file_name);
-
-	read_file(fd);
-	fclose(fd);
-}
-
-
-/**
  * read_file - reads a file
  * @fd: pointer to file descriptor
  * Return: void
@@ -85,21 +67,21 @@ void find_func(char *opcode, char *value, int ln, int format)
 	int flag;
 
 	instruction_t func_list[] = {
-		{"push", add_to_stack},
-		{"pall", print_stack},
-		{"pint", print_top},
-		{"pop", pop_top},
-		{"nop", nop},
-		{"swap", swap_nodes},
-		{"add", add_nodes},
-		{"sub", sub_nodes},
-		{"div", div_nodes},
-		{"mul", mul_nodes},
-		{"mod", mod_nodes},
-		{"pchar", print_char},
-		{"pstr", print_str},
-		{"rotl", rotl},
-		{"rotr", rotr},
+		{"push", _add},
+		{"pall", _pall},
+		{"pint", _rev_pall},
+		{"pop", _pop},
+		{"_nop", _nop},
+		{"swap", _swap},
+		{"add", _add},
+		{"sub", _sub},
+		{"div", _div},
+		{"mul", _mul},
+		{"mod", _mod},
+		{"pchar", _pallchar},
+		{"pstr", _pallstr},
+		{"_rotl", _rotl},
+		{"_rotr", _rotr},
 		{NULL, NULL}
 	};
 

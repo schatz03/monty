@@ -1,124 +1,76 @@
 #include "monty.h"
 
-/**
- * push - handles the push instruction
- * @stack: double pointer to the stack to push to
- * @line_number: number of the line in the file
- */
-void push(stack_m **stack, unsigned int line_number)
-{
-	stack_m *new_s = NULL;
-	int num = 0, i;
 
-	if (data.words[1] == NULL)
-	{
-		fprintf(stderr, PUSH_FAIL, line_number);
-		free_instractions(1);
+/**
+ * _add - for adding a node to the stack
+ * @new_node: Pointer to the new node.
+ * @ln: Interger representing the line number of of the opcode.
+ */
+void _add(stack_t **new_node, __attribute__((unused))unsigned int ln)
+{
+	stack_t *tmp;
+
+	if (new_node == NULL || *new_node == NULL)
 		exit(EXIT_FAILURE);
-	}
-	for (i = 0; data.words[1][i]; i++)
+	if (head == NULL)
 	{
-		if (isalpha(data.words[1][i]) != 0)
-		{
-			fprintf(stderr, PUSH_FAIL, line_number);
-			free_instractions(1);
-			exit(EXIT_FAILURE);
-		}
+		head = *new_node;
+		return;
 	}
-	num = atoi(data.words[1]);
-	if (data.qflag == 0)
-		new_s = _add_dnodeint(stack, num);
-	else if (data.qflag == 1)
-		new_s = _add_dnodeint_end(stack, num);
-	if (!new_s)
-	{
-		fprintf(stderr, MALLOC_FAIL);
-		free_instractions(1);
+	tmp = head;
+	head = *new_node;
+	head->next = tmp;
+	tmp->prev = head;
+}
+
+
+/**
+ * _pall - Adds a node to the stack.
+ * @stack: Pointer to a pointer pointing to top node of the stack.
+ * @line_number: line number of  the opcode.
+ */
+void _pall(stack_t **stack, unsigned int line_number)
+{
+	stack_t *tmp;
+
+	(void) line_number;
+	if (stack == NULL)
 		exit(EXIT_FAILURE);
+	tmp = *stack;
+	while (tmp != NULL)
+	{
+		printf("%d\n", tmp->n);
+		tmp = tmp->next;
 	}
 }
 
 /**
- * _pall - handles the _pall instruction
- * @stack: double pointer to the stack to push to
- * @line_number: number of the line in the file
+ * _pop - Adds a node to the stack.
+ * @stack: Pointer to a pointer pointing to top node of the stack.
+ * @line_number: Interger representing the line number of of the opcode.
  */
-void _pall(stack_m **stack, unsigned int line_number)
+void _pop(stack_t **stack, unsigned int line_number)
 {
-	(void)line_number;
-	if (*stack)
-		print_dlistint(*stack);
+	stack_t *tmp;
+
+	if (stack == NULL || *stack == NULL)
+		more_err(7, line_number);
+
+	tmp = *stack;
+	*stack = tmp->next;
+	if (*stack != NULL)
+		(*stack)->prev = NULL;
+	free(tmp);
 }
 
 /**
- * _pint - Handles the _pint instruction
- * @stack: Double pointer to the stack to push to
- * @line_number: Number of the line in the file
- *
- * Return: nothing
+ * _rev_pall - Prints the top node of the stack.
+ * @stack: Pointer to a pointer pointing to top node of the stack.
+ * @line_number: Interger representing the line number of of the opcode.
  */
-void _pint(stack_m **stack, unsigned int line_number)
+void _rev_pall(stack_t **stack, unsigned int line_number)
 {
-	stack_m *current = *stack;
-
-	if (!current)
-	{
-		fprintf(stderr, _pint_FAIL, line_number);
-		free_instractions(1);
-		exit(EXIT_FAILURE);
-	}
-
-	printf("%d\n", current->n);
-}
-
-/**
- * _pop - Handles the _pop instruction
- * @stack: Double pointer to the stack to _modify
- * @line_number: Number of the line in the files
- *
- * Return: nothing
- */
-void _pop(stack_m **stack, unsigned int line_number)
-{
-	stack_m *tmp = *stack;
-
-	if (!tmp)
-	{
-		fprintf(stderr, _pop_FAIL, line_number);
-		free_instractions(1);
-		exit(EXIT_FAILURE);
-	}
-
-	delete_dnodeint_at_index(stack, 0);
-}
-
-/**
- * _swap - Handles the _swap instruction
- * @stack: Double pointer to the stack to _modify
- * @line_number: number of the line in the file
- *
- * Return: nothing
- */
-void _swap(stack_m **stack, unsigned int line_number)
-{
-	stack_m *tmp = *stack, *new_node = NULL;
-	int number;
-
-	if (dlistint_len(*stack) < 2)
-	{
-		fprintf(stderr, _swap_FAIL, line_number);
-		free_instractions(1);
-		exit(EXIT_FAILURE);
-	}
-
-	tmp = get_dnodeint_at_index(*stack, 0);
-	number = tmp->n;
-	delete_dnodeint_at_index(stack, 0);
-	new_node = insert_dnodeint_at_index(stack, 1, number);
-	if (!new_node)
-	{
-		fprintf(stderr, MALLOC_FAIL);
-		free_instractions(1);
-		exit(EXIT_FAILURE);
-	}
+	if (stack == NULL || *stack == NULL)
+		more_err(6, line_number);
+	printf("%d\n", (*stack)->n);
 }

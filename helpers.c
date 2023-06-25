@@ -1,130 +1,95 @@
 #include "monty.h"
 
 /**
- * wc - Helper function to count the number of words in a string
- * @s: String to evaluate
- *
- * Return: Number of words
+ * _pallchar - Prints the Ascii value.
+ * @stack: Pointer to a pointer pointing to top node of the stack.
+ * @line_number: Interger representing the line number of of the opcode.
  */
-
-int wc(char *s)
+void _pallchar(stack_t **stack, unsigned int line_number)
 {
-	int word_flag, char_index, word_count;
+	int ascii;
 
-	word_flag = 0;
-	word_count = 0;
+	if (stack == NULL || *stack == NULL)
+		string_err(11, line_number);
 
-	for (char_index = 0; s[char_index] != '\0'; char_index++)
-	{
-		if (s[char_index] == ' ')
-			word_flag = 0;
-		else if (word_flag == 0)
-		{
-			word_flag = 1;
-			word_count++;
-		}
-	}
-
-	return (word_count);
+	ascii = (*stack)->n;
+	if (ascii < 0 || ascii > 127)
+		string_err(10, line_number);
+	printf("%c\n", ascii);
 }
 
 /**
- * strtow - Split a string into words
- * @str: String to split
- *
- * Return: Pointer to an array of strings (Success) or NULL (Error
+ * _pallstr - for printing a string.
+ * @stack: Pointer to a pointer pointing to top node of the stack.
+ * @ln: Interger representing the line number of of the opcode.
  */
-
-char **strtow(char *str)
+void _pallstr(stack_t **stack, __attribute__((unused))unsigned int ln)
 {
-	char **word_matrix, *tmp;
-	int i, matrix_index = 0, str_len = 0;
-	int word_count, char_index = 0, word_start, word_end;
+	int ascii;
+	stack_t *tmp;
 
-	str_len = strlen(str);
-	word_count = wc(str);
-	if (word_count == 0)
-		return (NULL);
-
-	word_matrix = (char **)malloc(sizeof(char *) * (word_count + 1));
-	if (word_matrix == NULL)
-		return (NULL);
-
-	for (i = 0; i <= str_len; i++)
+	if (stack == NULL || *stack == NULL)
 	{
-		if (isspace(str[i]) || str[i] == '\0' || str[i] == '\n')
-		{
-			if (char_index)
-			{
-				word_end = i;
-				tmp = (char *)malloc(sizeof(char) * (char_index + 1));
-				if (tmp == NULL)
-					return (NULL);
-				while (word_start < word_end)
-					*tmp++ = str[word_start++];
-				*tmp = '\0';
-				word_matrix[matrix_index] = tmp - char_index;
-				matrix_index++;
-				char_index = 0;
-			}
-		}
-		else if (char_index++ == 0)
-			word_start = i;
+		printf("\n");
+		return;
 	}
 
-	word_matrix[matrix_index] = NULL;
-	return (word_matrix);
+	tmp = *stack;
+	while (tmp != NULL)
+	{
+		ascii = tmp->n;
+		if (ascii <= 0 || ascii > 127)
+			break;
+		printf("%c", ascii);
+		tmp = tmp->next;
+	}
+	printf("\n");
 }
 
 /**
- * free_everything - Free arrays of strings
- * @args: Array of strings to free
- *
- * Return: nothing
+ * _rotl - Rotates the first node of the stack to the bottom.
+ * @stack: Pointer to a pointer pointing to top node of the stack.
+ * @ln: Interger representing the line number of of the opcode.
  */
-void free_everything(char **args)
+void _rotl(stack_t **stack, __attribute__((unused))unsigned int ln)
 {
-	int i;
+	stack_t *tmp;
 
-	if (!args)
+	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
 		return;
 
-	for (i = 0; args[i]; i++)
-		free(args[i]);
+	tmp = *stack;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
 
-	free(args);
+	tmp->next = *stack;
+	(*stack)->prev = tmp;
+	*stack = (*stack)->next;
+	(*stack)->prev->next = NULL;
+	(*stack)->prev = NULL;
 }
+
 
 /**
- * free_instractions - Handles custom memory deallocation
- * @all: Flag indicating what to free
- *
- * Return: nothing
+ * _rotr - Rotates the last node of the stack to the top.
+ * @stack: Pointer to a pointer pointing to top node of the stack.
+ * @ln: Interger representing the line number of of the opcode.
  */
-
-void free_instractions(int all)
+void _rotr(stack_t **stack, __attribute__((unused))unsigned int ln)
 {
-	if (data.line)
-	{
-		free(data.line);
-		data.line = NULL;
-		free_everything(data.words);
-		data.words = NULL;
-	}
+	stack_t *tmp;
 
-	if (all)
-	{
-		if (data.stack)
-		{
-			free_dlistint(data.stack);
-			data.stack = NULL;
-		}
+	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
+		return;
 
-		if (data.fptr)
-		{
-			fclose(data.fptr);
-			data.fptr = NULL;
-		}
-	}
+	tmp = *stack;
+
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+
+	tmp->next = *stack;
+	tmp->prev->next = NULL;
+	tmp->prev = NULL;
+	(*stack)->prev = tmp;
+	(*stack) = tmp;
 }
-
