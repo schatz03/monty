@@ -5,7 +5,7 @@
  * @stack: Pointer to a pointer pointing to top node of the stack.
  * @line_number: Interger representing the line number of of the opcode.
  */
-void _mul(stack_t **stack, unsigned int line_number)
+void _mul(stack_m **stack, unsigned int line_number)
 {
 	int sum;
 
@@ -25,7 +25,7 @@ void _mul(stack_t **stack, unsigned int line_number)
  * @stack: Pointer to a pointer pointing to the top node of the stack.
  * @line_number: Interger representing the line number of of the opcode.
  */
-void _mod(stack_t **stack, unsigned int line_number)
+void _mod(stack_m **stack, unsigned int line_number)
 {
 	int sum;
 

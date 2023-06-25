@@ -5,7 +5,7 @@
  * @stack: Pointer to a pointer pointing to top node of the stack.
  * @line_number: Interger representing the line number of of the opcode.
  */
-void _pallchar(stack_t **stack, unsigned int line_number)
+void _pallchar(stack_m **stack, unsigned int line_number)
 {
 	int ascii;
 
@@ -23,10 +23,10 @@ void _pallchar(stack_t **stack, unsigned int line_number)
  * @stack: Pointer to a pointer pointing to top node of the stack.
  * @ln: Interger representing the line number of of the opcode.
  */
-void _pallstr(stack_t **stack, __attribute__((unused))unsigned int ln)
+void _pallstr(stack_m **stack, __attribute__((unused))unsigned int ln)
 {
 	int ascii;
-	stack_t *tmp;
+	stack_m *tmp;
 
 	if (stack == NULL || *stack == NULL)
 	{
@@ -51,9 +51,9 @@ void _pallstr(stack_t **stack, __attribute__((unused))unsigned int ln)
  * @stack: Pointer to a pointer pointing to top node of the stack.
  * @ln: Interger representing the line number of of the opcode.
  */
-void _rotl(stack_t **stack, __attribute__((unused))unsigned int ln)
+void _rotl(stack_m **stack, __attribute__((unused))unsigned int ln)
 {
-	stack_t *tmp;
+	stack_m *tmp;
 
 	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
 		return;
@@ -75,9 +75,9 @@ void _rotl(stack_t **stack, __attribute__((unused))unsigned int ln)
  * @stack: Pointer to a pointer pointing to top node of the stack.
  * @ln: Interger representing the line number of of the opcode.
  */
-void _rotr(stack_t **stack, __attribute__((unused))unsigned int ln)
+void _rotr(stack_m **stack, __attribute__((unused))unsigned int ln)
 {
-	stack_t *tmp;
+	stack_m *tmp;
 
 	if (stack == NULL || *stack == NULL || (*stack)->next == NULL)
 		return;

@@ -6,9 +6,9 @@
  * @new_node: Pointer to the new node.
  * @ln: Interger representing the line number of of the opcode.
  */
-void _add(stack_t **new_node, __attribute__((unused))unsigned int ln)
+void _add(stack_m **new_node, __attribute__((unused))unsigned int ln)
 {
-	stack_t *tmp;
+	stack_m *tmp;
 
 	if (new_node == NULL || *new_node == NULL)
 		exit(EXIT_FAILURE);
@@ -29,9 +29,9 @@ void _add(stack_t **new_node, __attribute__((unused))unsigned int ln)
  * @stack: Pointer to a pointer pointing to top node of the stack.
  * @line_number: line number of  the opcode.
  */
-void _pall(stack_t **stack, unsigned int line_number)
+void _pall(stack_m **stack, unsigned int line_number)
 {
-	stack_t *tmp;
+	stack_m *tmp;
 
 	(void) line_number;
 	if (stack == NULL)
@@ -49,9 +49,9 @@ void _pall(stack_t **stack, unsigned int line_number)
  * @stack: Pointer to a pointer pointing to top node of the stack.
  * @line_number: Interger representing the line number of of the opcode.
  */
-void _pop(stack_t **stack, unsigned int line_number)
+void _pop(stack_m **stack, unsigned int line_number)
 {
-	stack_t *tmp;
+	stack_m *tmp;
 
 	if (stack == NULL || *stack == NULL)
 		more_err(7, line_number);
@@ -68,7 +68,7 @@ void _pop(stack_t **stack, unsigned int line_number)
  * @stack: Pointer to a pointer pointing to top node of the stack.
  * @line_number: Interger representing the line number of of the opcode.
  */
-void _rev_pall(stack_t **stack, unsigned int line_number)
+void _rev_pall(stack_m **stack, unsigned int line_number)
 {
 	if (stack == NULL || *stack == NULL)
 		more_err(6, line_number);

@@ -66,7 +66,7 @@ void find_func(char *opcode, char *value, int ln, int format)
 	int i;
 	int flag;
 
-	instruction_t func_list[] = {
+	instruction_m func_list[] = {
 		{"push", _add},
 		{"pall", _pall},
 		{"pint", _rev_pall},
@@ -110,9 +110,9 @@ void find_func(char *opcode, char *value, int ln, int format)
  * @format: Format specifier. If 0 Nodes will be entered as a stack.
  * if 1 nodes will be entered as a queue.
  */
-void call_fun(op_func func, char *op, char *val, int ln, int format)
+void call_fun(exec_m func, char *op, char *val, int ln, int format)
 {
-	stack_t *node;
+	stack_m *node;
 	int flag;
 	int i;
 
