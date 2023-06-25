@@ -11,7 +11,7 @@ push 1 Push 1 onto the stack
 
 push 2
   push 3
-                   _pall    
+                   pall    
 
 
                            
@@ -20,7 +20,7 @@ push 4
     push 5    
       push    6        
 
-_pall This is the end of our program. Monty is awesome!"
+pall This is the end of our program. Monty is awesome!"
 
 # make test case file:
 echo "$montyBytes" > testCase00
