@@ -8,7 +8,7 @@
 #include <unistd.h>
 
 /**
- * struct stack_s - doubly linked list representation of a stack (or queue)
+ * struct stack_m - doubly linked list representation of a stack (or queue)
  * @n: integer
  * @prev: points to the previous element of the stack (or queue)
  * @next: points to the next element of the stack (or queue)
@@ -16,11 +16,11 @@
  * Description: doubly linked list node structure
  * for stack, queues, LIFO, FIFO
  */
-typedef struct stack_s
+typedef struct stack_m
 {
 	int n;
-	struct stack_s *prev;
-	struct stack_s *next;
+	struct stack_m *prev;
+	struct stack_m *next;
 } stack_m;
 
 /**
@@ -34,8 +34,10 @@ typedef struct stack_s
 typedef struct instruction_s
 {
 	char *opcode;
-	void (*f)(stack_m **stack, unsigned int line_number);
+	void(*f)(stack_m **, unsigned int);
 } instruction_m;
+
+
 
 /**
  * struct args_s - structure of arguments from main
@@ -72,14 +74,10 @@ typedef struct data_s
 
 typedef stack_m dlistint_t;
 
-extern data_m data;
-
-#define DATA_INIT                 \
-{                             \
-	NULL, NULL, NULL, NULL, 0 \
-}
+data_m data;
 
 #define USAGE "USAGE: monty file\n"
+#define FUNC void(*f)(stack_m **, unsigned int)
 #define FILE_ERROR "Error: Can't open file %s\n"
 #define UNKNOWN "L%u: unknown instruction %s\n"
 #define MALLOC_FAIL "Error: malloc failed\n"
@@ -95,43 +93,31 @@ extern data_m data;
 #define _mod_FAIL "L%u: can't _mod, stack too short\n"
 #define PCHAR_FAIL "L%u: can't pchar, stack empty\n"
 #define PCHAR_RANGE "L%u: can't pchar, value out of range\n"
-/* main.c */
-void execute(args_m *args);
-/* fetch_func.c */
-void (*get_instruction(char **parsed))(stack_m **, unsigned int);
+void execute(args_m *args, FILE *file);
+instruction_m *get_instruction(char **parsed);
 void push(stack_m **stack, unsigned int line_number);
 instruction_m *fill_instruction();
 void _pall(stack_m **stack, unsigned int line_number);
-/* funcs1.c */
 void _pint(stack_m **stack, unsigned int line_number);
 void _pop(stack_m **stack, unsigned int line_number);
 void _swap(stack_m **stack, unsigned int line_number);
 void _add(stack_m **stack, unsigned int line_number);
 void _nop(stack_m **stack, unsigned int line_number);
-/* funcs2.c */
 void _sub(stack_m **stack, unsigned int line_number);
 void _div(stack_m **stack, unsigned int line_number);
 void _mul(stack_m **stack, unsigned int line_number);
 void _mod(stack_m **stack, unsigned int line_number);
-/* funcs3.c */
 void _rotl(stack_m **stack, unsigned int line_number);
 void _rotr(stack_m **stack, unsigned int line_number);
 void stack(stack_m **stack, unsigned int line_number);
 void queue(stack_m **stack, unsigned int line_number);
-/* char.c */
 void pchar(stack_m **stack, unsigned int line_number);
 void pstr(stack_m **stack, unsigned int line_number);
-/* strtow.c */
 int wc(char *s);
 char **strtow(char *str);
 void free_everything(char **args);
-/* free.c */
 void free_instractions(int all);
-/* dprintf */
-int dprintf(int fd, const char *format, ...);
-/* getline */
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
-/* doubly linked list fuctions */
 size_t dlistint_len(const dlistint_t *h);
 dlistint_t *_add_dnodeint(dlistint_t **head, const int n);
 size_t print_dlistint(const dlistint_t *h);
@@ -141,4 +127,4 @@ dlistint_t *insert_dnodeint_at_index(dlistint_t **h, unsigned int idx, int n);
 dlistint_t *_add_dnodeint_end(dlistint_t **head, const int n);
 void free_dlistint(dlistint_t *head);
 
-#endif /* MONTY_H */
+#endif

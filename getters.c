@@ -7,7 +7,7 @@
  * Return: pointer to the selected function (success),
  * or NULL (failure)
  */
-void (*get_instruction(char **parsed))(stack_m **, unsigned int)
+instruction_m *get_instruction(char **parsed)
 {
 
 	int i = 0;
@@ -16,7 +16,7 @@ void (*get_instruction(char **parsed))(stack_m **, unsigned int)
 	while (_instructions[i].opcode != NULL)
 	{
 		if (strcmp(_instructions[i].opcode, parsed[0]) == 0)
-			return (_instructions[i].f);
+			return (&_instructions[i]);
 		i++;
 	}
 	return (NULL);
