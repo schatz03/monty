@@ -10,12 +10,14 @@ stack_m *head = NULL;
 
 int main(int argc, char *argv[])
 {
+	FILE *fd;
+
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	FILE *fd = fopen(argv[1], "r");
+	fd = fopen(argv[1], "r");
 	if (argv[1] == NULL || fd == NULL)
 		err(2, argv[1]);
 	read_file(fd);
