@@ -17,13 +17,13 @@ int main(int argc, char *argv[])
 	args.line_number = 0;
 	if (args.ac != 2)
 	{
-		dprintf(STDERR_FILENO, USAGE);
+		fprintf(stderr, USAGE);
 		exit(EXIT_FAILURE);
 	}
 	data.fptr = fopen(args.av, "r");
 	if (data.fptr == NULL)
 	{
-		dprintf(STDERR_FILENO, FILE_ERROR, args.av);
+		fprintf(stderr, FILE_ERROR, args.av);
 		exit(EXIT_FAILURE);
 	}
 	execute(&args, data.fptr);

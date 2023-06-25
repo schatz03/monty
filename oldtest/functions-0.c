@@ -12,7 +12,7 @@ void push(stack_m **stack, unsigned int line_number)
 
 	if (data.words[1] == NULL)
 	{
-		dprintf(STDERR_FILENO, PUSH_FAIL, line_number);
+		fprintf(stderr, PUSH_FAIL, line_number);
 		free_instractions(1);
 		exit(EXIT_FAILURE);
 	}
@@ -20,7 +20,7 @@ void push(stack_m **stack, unsigned int line_number)
 	{
 		if (isalpha(data.words[1][i]) != 0)
 		{
-			dprintf(STDERR_FILENO, PUSH_FAIL, line_number);
+			fprintf(stderr, PUSH_FAIL, line_number);
 			free_instractions(1);
 			exit(EXIT_FAILURE);
 		}
@@ -32,7 +32,7 @@ void push(stack_m **stack, unsigned int line_number)
 		new_s = _add_dnodeint_end(stack, num);
 	if (!new_s)
 	{
-		dprintf(STDERR_FILENO, MALLOC_FAIL);
+		fprintf(stderr, MALLOC_FAIL);
 		free_instractions(1);
 		exit(EXIT_FAILURE);
 	}
@@ -63,7 +63,7 @@ void _pint(stack_m **stack, unsigned int line_number)
 
 	if (!current)
 	{
-		dprintf(STDERR_FILENO, _pint_FAIL, line_number);
+		fprintf(stderr, _pint_FAIL, line_number);
 		free_instractions(1);
 		exit(EXIT_FAILURE);
 	}
@@ -84,7 +84,7 @@ void _pop(stack_m **stack, unsigned int line_number)
 
 	if (!tmp)
 	{
-		dprintf(STDERR_FILENO, _pop_FAIL, line_number);
+		fprintf(stderr, _pop_FAIL, line_number);
 		free_instractions(1);
 		exit(EXIT_FAILURE);
 	}
@@ -106,7 +106,7 @@ void _swap(stack_m **stack, unsigned int line_number)
 
 	if (dlistint_len(*stack) < 2)
 	{
-		dprintf(STDERR_FILENO, _swap_FAIL, line_number);
+		fprintf(stderr, _swap_FAIL, line_number);
 		free_instractions(1);
 		exit(EXIT_FAILURE);
 	}
@@ -117,7 +117,7 @@ void _swap(stack_m **stack, unsigned int line_number)
 	new_node = insert_dnodeint_at_index(stack, 1, number);
 	if (!new_node)
 	{
-		dprintf(STDERR_FILENO, MALLOC_FAIL);
+		fprintf(stderr, MALLOC_FAIL);
 		free_instractions(1);
 		exit(EXIT_FAILURE);
 	}

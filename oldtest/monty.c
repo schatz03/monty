@@ -23,7 +23,7 @@ void execute(args_m *args, FILE *file)
 		};
 		if (!get_instruction(data.words)->f)
 		{
-			dprintf(STDERR_FILENO, UNKNOWN, args->line_number, data.words[0]);
+			fprintf(stderr, UNKNOWN, args->line_number, data.words[0]);
 			free_instractions(1);
 			exit(EXIT_FAILURE);
 		}

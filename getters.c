@@ -35,14 +35,14 @@ void pchar(stack_m **stack, unsigned int line_number)
 
 	if (!new_node)
 	{
-		dprintf(STDERR_FILENO, PCHAR_FAIL, line_number);
+		fprintf(stderr, PCHAR_FAIL, line_number);
 		free_instractions(1);
 		exit(EXIT_FAILURE);
 	}
 
 	if (new_node->n < 0 || new_node->n > 127)
 	{
-		dprintf(STDERR_FILENO, PCHAR_RANGE, line_number);
+		fprintf(stderr, PCHAR_RANGE, line_number);
 		free_instractions(1);
 		exit(EXIT_FAILURE);
 	}

@@ -16,14 +16,14 @@ void _mod(stack_m **stack, unsigned int line_number)
 
 	if (dlistint_len(*stack) < 2)
 	{
-		dprintf(STDERR_FILENO, _mod_FAIL, line_number);
+		fprintf(stderr, _mod_FAIL, line_number);
 		free_instractions(1);
 		exit(EXIT_FAILURE);
 	}
 
 	if (new_node_0->n == 0)
 	{
-		dprintf(STDERR_FILENO, _div_ZERO, line_number);
+		fprintf(stderr, _div_ZERO, line_number);
 		free_instractions(1);
 		exit(EXIT_FAILURE);
 	}
@@ -34,7 +34,7 @@ void _mod(stack_m **stack, unsigned int line_number)
 	new_node = _add_dnodeint(stack, result);
 	if (!new_node)
 	{
-		dprintf(STDERR_FILENO, MALLOC_FAIL);
+		fprintf(stderr, MALLOC_FAIL);
 		free_instractions(1);
 		exit(EXIT_FAILURE);
 	}
