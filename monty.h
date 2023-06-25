@@ -48,7 +48,7 @@ void find_func(char *, char *, int, int);
 stack_m *create_node(int n);
 void free_nodes(void);
 void _pall(stack_m **, unsigned int);
-void _add(stack_m **, unsigned int);
+void _push(stack_m **, unsigned int);
 void add_to_queue(stack_m **, unsigned int);
 
 void call_fun(exec_m, char *, char *, int, int);
