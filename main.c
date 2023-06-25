@@ -15,7 +15,6 @@ int main(int argc, char *argv[])
 	args.av = argv[1];
 	args.ac = argc;
 	args.line_number = 0;
-	(void)data;
 	if (args.ac != 2)
 	{
 		dprintf(STDERR_FILENO, USAGE);
