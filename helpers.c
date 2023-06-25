@@ -1,107 +1,130 @@
 #include "monty.h"
 
 /**
- * _isdigit - checks if a string is a number
- * @str: string being passed
- * Return: returns 1 if string is a number, 0 otherwise
+ * wc - Helper function to count the number of words in a string
+ * @s: String to evaluate
+ *
+ * Return: Number of words
  */
-int _isdigit(char *str)
-{
-	unsigned int i;
 
-	if (str == NULL)
-		return (0);
-	i = 0;
-	while (str[i])
+int wc(char *s)
+{
+	int word_flag, char_index, word_count;
+
+	word_flag = 0;
+	word_count = 0;
+
+	for (char_index = 0; s[char_index] != '\0'; char_index++)
 	{
-		if (str[0] == '-')
+		if (s[char_index] == ' ')
+			word_flag = 0;
+		else if (word_flag == 0)
 		{
-			i++;
-			continue;
+			word_flag = 1;
+			word_count++;
 		}
-		if (!isdigit(str[i]))
-			return (0);
-		i++;
 	}
-	return (1);
+
+	return (word_count);
 }
 
 /**
- * trim - Trim leading and trailing spaces from a string
- * @str: The string to trim
- * Description: This function removes
- * leading and trailing spaces from a string.
+ * strtow - Split a string into words
+ * @str: String to split
+ *
+ * Return: Pointer to an array of strings (Success) or NULL (Error
  */
-void trim(char *str)
+
+char **strtow(char *str)
 {
-	char *end, *start;
+	char **word_matrix, *tmp;
+	int i, matrix_index = 0, str_len = 0;
+	int word_count, char_index = 0, word_start, word_end;
 
-	start = str;
-	while (isspace(*start))
-		start++;
+	str_len = strlen(str);
+	word_count = wc(str);
+	if (word_count == 0)
+		return (NULL);
 
-	end = str + strlen(str) - 1;
-	while (end > start && isspace(*end))
-		end--;
+	word_matrix = (char **)malloc(sizeof(char *) * (word_count + 1));
+	if (word_matrix == NULL)
+		return (NULL);
 
-	*(end + 1) = '\0';
-	memmove(str, start, strlen(start) + 1);
-}
-
-/**
- * _parse_opcode - parses a line for an opcode and arguments
- * @line: the line to be parsed
- * @stack: pointer to the head of the stack
- * @line_number: the current line number
- * Return: int
- */
-int _parse_opcode(char *line, stack_m **stack, unsigned int line_number)
-{
-	char *opcode, *firstWord, *arguments;
-
-	(void)stack;
-	(void)line_number;
-	line[strcspn(line, "\n")] = '\0';
-	if (strlen(line) == 0)
-		return (0);
-
-	firstWord = line;
-	while (isspace(*firstWord))
-		firstWord++;
-
-	opcode = strtok(firstWord, " \n\t");
-	if (opcode && opcode[0] == '#')
-		return (0);
-	if (opcode != NULL)
+	for (i = 0; i <= str_len; i++)
 	{
-		trim(opcode);
-		if (strlen(opcode) == 0)
-			return (0);
-		op_code_and_arg.op_code = opcode;
-		arguments = strtok(NULL, " \n\t");
-
-		if (arguments != NULL)
+		if (isspace(str[i]) || str[i] == '\0' || str[i] == '\n')
 		{
-			trim(arguments);
-			op_code_and_arg.arg = arguments;
+			if (char_index)
+			{
+				word_end = i;
+				tmp = (char *)malloc(sizeof(char) * (char_index + 1));
+				if (tmp == NULL)
+					return (NULL);
+				while (word_start < word_end)
+					*tmp++ = str[word_start++];
+				*tmp = '\0';
+				word_matrix[matrix_index] = tmp - char_index;
+				matrix_index++;
+				char_index = 0;
+			}
 		}
-		return (1);
+		else if (char_index++ == 0)
+			word_start = i;
 	}
-	return (0);
-}
-/**
-* free_stack - frees a doubly linked list
-* @head: head of the stack
-*/
-void free_stack(stack_m *head)
-{
-	stack_m *aux;
 
-	aux = head;
-	while (head)
+	word_matrix[matrix_index] = NULL;
+	return (word_matrix);
+}
+
+/**
+ * free_everything - Free arrays of strings
+ * @args: Array of strings to free
+ *
+ * Return: nothing
+ */
+void free_everything(char **args)
+{
+	int i;
+
+	if (!args)
+		return;
+
+	for (i = 0; args[i]; i++)
+		free(args[i]);
+
+	free(args);
+}
+
+/**
+ * free_instractions - Handles custom memory deallocation
+ * @all: Flag indicating what to free
+ *
+ * Return: nothing
+ */
+
+void free_instractions(int all)
+{
+	if (data.line)
 	{
-		aux = head->next;
-		free(head);
-		head = aux;
+		free(data.line);
+		data.line = NULL;
+		free_everything(data.words);
+		data.words = NULL;
+	}
+
+	if (all)
+	{
+		if (data.stack)
+		{
+			free_dlistint(data.stack);
+			data.stack = NULL;
+		}
+
+		if (data.fptr)
+		{
+			fclose(data.fptr);
+			data.fptr = NULL;
+		}
 	}
 }
+

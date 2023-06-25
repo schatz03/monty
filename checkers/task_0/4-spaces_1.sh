@@ -10,11 +10,11 @@ montyBytes="push 0
 push 1
 push 2
   push 3
-                   pall    
+                   _pall    
 push 4
     push 5    
       push   6        
-pall"
+_pall"
 
 # make test case file:
 echo "$montyBytes" > testCase00

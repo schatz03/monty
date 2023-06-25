@@ -9,8 +9,8 @@ NC='\033[0m' # No Color
 montyBytes="push 1
 push 2
 push 3
-swap
-pall"
+_swap
+_pall"
 
 # make test case file:
 echo "$montyBytes" > testCase00

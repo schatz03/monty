@@ -8,8 +8,8 @@ NC='\033[0m' # No Color
 # monty bytcode test case:
 montyBytes="push 10
 push 2
-div 2
-pall"
+_div 2
+_pall"
 
 # make test case file:
 echo "$montyBytes" > testCase00

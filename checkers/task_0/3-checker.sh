@@ -7,7 +7,7 @@ NC='\033[0m' # No Color
 
 # monty bytcode test case:
 montyBytes="push 1
-pall
+_pall
 push a"
 
 # make test case file:

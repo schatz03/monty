@@ -6,8 +6,8 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 # monty bytcode test case:
-montyBytes="swap
-pall"
+montyBytes="_swap
+_pall"
 
 # make test case file:
 echo "$montyBytes" > testCase00
@@ -16,7 +16,7 @@ echo "$montyBytes" > testCase00
 program_output=$(./monty testCase00 2>&1 >/dev/null)
 
 # Specify the expected result
-expected_result="L1: can't swap, stack too short"
+expected_result="L1: can't _swap, stack too short"
 
 # Compare the program's output with the expected result
 if [ "$program_output" == "$expected_result" ]; then

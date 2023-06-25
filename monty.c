@@ -1,35 +1,40 @@
 #include "monty.h"
+
 /**
- * main - entry point
- * @argc: arguments count
- * @argv: arguments vector
+ * execute - helper function for main function
+ * @args: pointer to struct of arguments from main
  *
- * Return: exit status int
+ * Description: opens and reads from the file
+ * containing the opcodes, and calls the function
+ * that will find the corresponding executing function
  */
-
-int main(int argc, char *argv[])
+void execute(args_m *args)
 {
-	OPCODEarg *op_code_and_arg = NULL;
-	FILE *file;
-	/* Fill the opcode and its function in instruction_t structure */
-	instruction_m *instructions = create_instructions();
-	(void)op_code_and_arg;
-	if (argc != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
-		exit(EXIT_FAILURE);
-	}
+	int get = 0;
+	size_t len = 0;
+	void (*code_func)(stack_m **, unsigned int);
 
-	file = fopen(argv[1], "r");
-	if (!file)
+	while (1)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		exit(EXIT_FAILURE);
+		args->line_number++;
+		get = getline(&(data.line), &len, data.fptr);
+		if (get < 0)
+			break;
+		data.words = strtow(data.line);
+		if (data.words[0] == NULL || data.words[0][0] == '#')
+		{
+			free_instractions(0);
+			continue;
+		}
+		code_func = get_instruction(data.words);
+		if (!code_func)
+		{
+			dprintf(STDERR_FILENO, UNKNOWN, args->line_number, data.words[0]);
+			free_instractions(1);
+			exit(EXIT_FAILURE);
+		}
+		code_func(&(data.stack), args->line_number);
+		free_instractions(0);
 	}
-	fill_instructions(instructions);
-	/* Read and execute Monty byte code */
-	process_opcodes(file, instructions);
-	fclose(file);
-	free_instructions(instructions);
-	return (EXIT_SUCCESS);
+	free_instractions(1);
 }

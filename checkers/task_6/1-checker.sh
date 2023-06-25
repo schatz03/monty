@@ -10,8 +10,8 @@ montyBytes="push 1
 push 2
 push 10
 push 3
-sub
-pall
+_sub
+_pall
 "
 
 # make test case file:

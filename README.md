@@ -1,6 +1,6 @@
 ## 0x19. C - Stacks, Queues - LIFO, FIFO
 
-<div class="panel-body">
+<_div class="panel-body">
     <p><img src="https://pbs.twimg.com/media/CFYYWy6UEAE9Ow-.png"><br>
 <br></p>
 
@@ -83,7 +83,7 @@ typedef struct stack_s
         int n;
         struct stack_s *prev;
         struct stack_s *next;
-} stack_t;
+} stack_m;
 </code></pre>
 
 <pre><code>/**
@@ -97,8 +97,8 @@ typedef struct stack_s
 typedef struct instruction_s
 {
         char *opcode;
-        void (*f)(stack_t **stack, unsigned int line_number);
-} instruction_t;
+        void (*f)(stack_m **stack, unsigned int line_number);
+} instruction_m;
 </code></pre>
 
 <h3>Compilation &amp; Output</h3>
@@ -137,15 +137,15 @@ push 0$
 push 1$
 push 2$
   push 3$
-                   pall    $
+                   _pall    $
 push 4$
     push 5    $
       push    6        $
-pall$
+_pall$
 julien@ubuntu:~/monty$
 </code></pre>
 
-<p>Monty byte code files can contain blank lines (empty or made of spaces only, and any additional text after the opcode or its required argument is not taken into account:</p>
+<p>Monty byte code files can contain blank lines (empty or made of spaces only, and any _additional text after the opcode or its required argument is not taken into account:</p>
 
 <pre><code>julien@ubuntu:~/monty$ cat -e bytecodes/001.m
 push 0 Push 0 onto the stack$
@@ -153,7 +153,7 @@ push 1 Push 1 onto the stack$
 $
 push 2$
   push 3$
-                   pall    $
+                   _pall    $
 $
 $
                            $
@@ -162,7 +162,7 @@ $
     push 5    $
       push    6        $
 $
-pall This is the end of our program. Monty is awesome!$
+_pall This is the end of our program. Monty is awesome!$
 julien@ubuntu:~/monty$
 </code></pre>
 
@@ -197,4 +197,4 @@ julien@ubuntu:~/monty$
 <li>You have to use <code>malloc</code> and <code>free</code> and are not allowed to use any other function from <code>man malloc</code> (realloc, calloc, …)</li>
 </ul>
 
-  </div>
+  </_div>

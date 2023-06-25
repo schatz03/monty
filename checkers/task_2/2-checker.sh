@@ -6,7 +6,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 # monty bytcode test case:
-montyBytes="pop"
+montyBytes="_pop"
 
 # make test case file:
 echo "$montyBytes" > testCase00
@@ -15,7 +15,7 @@ echo "$montyBytes" > testCase00
 program_output=$(./monty testCase00 2>&1 >/dev/null)
 
 # Specify the expected result
-expected_result="L1: can't pop an empty stack"
+expected_result="L1: can't _pop an empty stack"
 
 # Compare the program's output with the expected result
 if [ "$program_output" == "$expected_result" ]; then

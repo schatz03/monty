@@ -7,11 +7,11 @@ NC='\033[0m' # No Color
 
 # monty bytcode test case:
 montyBytes="push 1
-pint
+_pint
 push 2
-pint
+_pint
 push 3
-pint"
+_pint"
 
 # make test case file:
 echo "$montyBytes" > testCase00

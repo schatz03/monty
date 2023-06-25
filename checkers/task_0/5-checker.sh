@@ -6,7 +6,7 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 # monty bytcode test case:
-montyBytes="pall"
+montyBytes="_pall"
 
 # make test case file:
 echo "$montyBytes" > testCase00
